@@ -16,6 +16,8 @@ class Game {
 
   late Timer _timer;
   late Board _board;
+  late Window _hold;
+  late Window _next;
 
   Tetronimo? _tetronimo;
 
@@ -52,7 +54,11 @@ class Game {
   }
 
   void _createWindows() {
-    _board = Board("SCREEN::BOARD", 4, 4);
+    _hold = Window("SCREEN::HOLD", 4, 0, 10, 5)..border=Border.rounded();
+    _board = Board("SCREEN::BOARD", 4, 10);
+    _next = Window("SCREEN::NEXT", 4, 10+_board.columns, 10, 5)..border=Border.rounded();
+    _screen.addWindow(_hold);
+    _screen.addWindow(_next);
     _screen.addWindow(_board);
   }
 
