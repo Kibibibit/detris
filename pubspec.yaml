@@ -1,0 +1,17 @@
+name: detris
+description: A tetris game made using dcurses
+version: 0.0.1
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.16.0-80.0.dev <3.0.0'
+
+
+dependencies:
+  path: ^1.8.0
+  dcurses:
+    path: /home/dmills/Personal/dcurses
+
+dev_dependencies:
+  lints: ^1.0.0
+  test: ^1.16.0
