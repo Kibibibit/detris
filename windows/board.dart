@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dcurses/dcurses.dart';
 
@@ -12,7 +13,7 @@ class Board extends Window {
 
   final Game game;
   final double tetrisMult = 1.2;
-  int backToBacks = 0;
+  
 
   Board(String label, int y, int x, this.game) : super(label, y, x, 22, 22) {
     border = Border.double();
@@ -57,22 +58,28 @@ class Board extends Window {
     }
 
     if (clearedLines.isNotEmpty) {
-      if (clearedLines == 4) {
-        backToBacks++;
+      if (clearedLines.length == 4) {
+        game.backToBacks = game.backToBacks+1;
       } else {
-        backToBacks = 0;
+        game.backToBacks = 0;
       }
       game.linesCleared += clearedLines.length;
-      game.score += _scoring[clearedLines.length]! * (backToBacks == 1 ? 1 : (backToBacks > 1 ? backToBacks*tetrisMult : 1)).floor();
+
+      int b = _scoring[clearedLines.length]!;
+
+      game.score += max(b, b*((game.backToBacks-1)*tetrisMult).floor());
       screen?.refresh();
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
+
+        Colour flashColour = clearedLines.length != 4 ? Colour.white : Colour.values[Random().nextInt(Colour.values.length)];
+
         for (int line in clearedLines) {
           for (int x = 0; x < columns; x++) {
             cx = x;
             cy = line + 1;
             add(Ch(Block.blockCode,
-                [Modifier.fg(f % 2 == 0 ? Colour.black : Colour.white)]));
+                [Modifier.fg(f % 2 == 0 ? Colour.black :  flashColour)]));
           }
         }
 

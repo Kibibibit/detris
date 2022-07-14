@@ -28,6 +28,13 @@ class ScoreBoard extends Window {
 
     addStr(level);
 
+    String combo = "COMBO: ${game.backToBacks}";
+
+    cx = columns - (combo.length+1);
+
+    cy = 1;
+    addStr(combo);
+
   }
   
 }
