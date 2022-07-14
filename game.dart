@@ -75,6 +75,8 @@ class Game {
     return frames * 17; // Constant for 16.7 milliseconds per frame
   }
 
+  int _hardDropped = 0;
+
   Tetronimo? _tetronimo;
 
   List<PieceType> order = [];
@@ -135,8 +137,10 @@ class Game {
 
         if (key == Key.upArrow) {
           _timer.cancel();
+          
           while (!_tetronimo!.landed(_board)) {
             _tetronimo!.pos.y += 1;
+            _hardDropped++;
           }
           _dropPiece(null, true);
         }
@@ -205,7 +209,8 @@ class Game {
           return;
         }
 
-        _board.addPiece(_tetronimo!);
+        _board.addPiece(_tetronimo!, _hardDropped*2);
+        _hardDropped = 0;
         _tetronimo = null;
       } else {
         _tetronimo!.pos.y += 1;
