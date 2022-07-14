@@ -127,6 +127,12 @@ class Game {
 
   void _onKey(Key key) {
     if (!_gameOver) {
+      if (key == Key.fromChar("R")) {
+        close();
+        _gameCompleter.complete(true);
+        return;
+      }
+
       if (_tetronimo != null) {
         if (key == Key.leftArrow) {
           _tetronimo?.left(_board);
@@ -137,7 +143,7 @@ class Game {
 
         if (key == Key.upArrow) {
           _timer.cancel();
-          
+
           while (!_tetronimo!.landed(_board)) {
             _tetronimo!.pos.y += 1;
             _hardDropped++;
@@ -164,13 +170,11 @@ class Game {
           if (hold != null) {
             _timer.cancel();
             _dropPiece(hold);
-            
           }
           hold = other;
           _canHold = false;
           _hold.draw();
         }
-
       }
 
       _board.update(_tetronimo);
@@ -200,7 +204,7 @@ class Game {
 
       if (_tetronimo!.landed(_board)) {
         if (!hard) {
-          timer = (timer*1.5).floor();
+          timer = (timer * 1.5).floor();
         } else {
           timer = 0;
         }
@@ -209,7 +213,7 @@ class Game {
           return;
         }
 
-        _board.addPiece(_tetronimo!, _hardDropped*2);
+        _board.addPiece(_tetronimo!, _hardDropped * 2);
         _hardDropped = 0;
         _tetronimo = null;
       } else {
