@@ -13,7 +13,6 @@ class Board extends Window {
 
   final Game game;
   final double tetrisMult = 1.2;
-  
 
   Board(String label, int y, int x, this.game) : super(label, y, x, 22, 22) {
     border = Border.double();
@@ -103,15 +102,27 @@ class Board extends Window {
 
   void drawBlocks() {
     this.clear();
+
+    
+
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
+        cy = y + 1;
+        cx = (x * 2) + 1;
+
+        List<Modifier> mods = [Modifier.fg(Colour.gray)];
+        if ((cx-1)/2 % 2 == 0) {
+          mods.add(Modifier.decoration(Decoration.faint));
+        }
+
+        add(Ch(0x2595, mods ));
+        
         if (blocks[y][x] != null) {
-          cx = (x * 2) + 1;
-          cy = y + 1;
           add(blocks[y][x]!.ch);
           cx++;
           add(blocks[y][x]!.ch);
         }
+        
       }
     }
   }
