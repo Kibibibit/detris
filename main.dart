@@ -1,10 +1,21 @@
 
+import 'package:dcurses/dcurses.dart';
+
 import 'game.dart';
 
-void main() {
+void main() async {
 
-  Game game = Game();
+  Screen screen = Screen();
+  screen.disableBlocking();
+  screen.run();
 
-  game.run();
+
+  Game? game;
+  
+  while ((await game?.run()) ?? true) {
+    game = Game(screen);
+  }
+
+  screen.close();
 
 }

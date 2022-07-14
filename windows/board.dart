@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dcurses/dcurses.dart';
 
+import '../game.dart';
 import '../gameobjects/block.dart';
 import '../gameobjects/tetronimo.dart';
 
@@ -9,12 +10,32 @@ class Board extends Window {
   List<List<Block?>> blocks =
       List.generate(height, (_) => List.generate(width, (_) => null));
 
-  Board(String label, int y, int x) : super(label, y, x, 22, 22) {
+  final Game game;
+  final double tetrisMult = 1.2;
+  int backToBacks = 0;
+
+  Board(String label, int y, int x, this.game) : super(label, y, x, 22, 22) {
     border = Border.double();
   }
 
+  static final Map<int, int> _scoring = {
+    1: 100,
+    2: 300,
+    3: 500,
+    4: 800
+  };
+
   static final int height = 20;
   static final int width = 10;
+
+  bool offTop(Tetronimo tetronimo) {
+    for (Block b in tetronimo.children) {
+      if (b.pos.y + tetronimo.pos.y < 0) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   void addPiece(Tetronimo tetronimo) {
     for (Block b in tetronimo.children) {
@@ -36,14 +57,22 @@ class Board extends Window {
     }
 
     if (clearedLines.isNotEmpty) {
+      if (clearedLines == 4) {
+        backToBacks++;
+      } else {
+        backToBacks = 0;
+      }
+      game.linesCleared += clearedLines.length;
+      game.score += _scoring[clearedLines.length]! * (backToBacks == 1 ? 1 : (backToBacks > 1 ? backToBacks*tetrisMult : 1)).floor();
+      screen?.refresh();
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
         for (int line in clearedLines) {
           for (int x = 0; x < columns; x++) {
             cx = x;
             cy = line + 1;
-            add(Ch(
-                Block.blockCode, [Modifier.fg(f % 2 == 0 ? Colour.black: Colour.white)]));
+            add(Ch(Block.blockCode,
+                [Modifier.fg(f % 2 == 0 ? Colour.black : Colour.white)]));
           }
         }
 

@@ -10,7 +10,7 @@ environment:
 dependencies:
   path: ^1.8.0
   dcurses:
-    path: /home/dmills/Personal/dcurses
+    git: https://github.com/Kibibibit/dcurses
 
 dev_dependencies:
   lints: ^1.0.0

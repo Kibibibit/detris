@@ -67,9 +67,11 @@ packages:
   dcurses:
     dependency: "direct main"
     description:
-      path: "/home/dmills/Personal/dcurses"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "22bad7d446cac5102eb5f52b7a58265089681281"
+      url: "https://github.com/Kibibibit/dcurses"
+    source: git
     version: "1.0.0"
   file:
     dependency: transitive

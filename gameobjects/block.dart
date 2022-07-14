@@ -29,7 +29,6 @@ class Block {
 
   bool clipping(Tetronimo tetronimo, Board board) {
     int x = tetronimo.pos.x + pos.x;
-    int y = tetronimo.pos.y + pos.y;
     if (x < 0 || x > Board.width-1) {
       return true;
     }
