@@ -78,6 +78,7 @@ class Game {
   }
 
   int _hardDropped = 0;
+  int _softDropped = 0;
 
   Tetronimo? _tetronimo;
 
@@ -137,14 +138,14 @@ class Game {
       }
 
       if (_tetronimo != null) {
-        if (key == Key.leftArrow) {
+        if (key == Key.leftArrow || key == Key.fromChar("j")) {
           _tetronimo?.left(_board);
         }
-        if (key == Key.rightArrow) {
+        if (key == Key.rightArrow || key == Key.fromChar("l")) {
           _tetronimo?.right(_board);
         }
 
-        if (key == Key.upArrow) {
+        if (key == Key.upArrow || key == Key.fromChar("i")) {
           _timer.cancel();
 
           while (!_tetronimo!.landed(_board)) {
@@ -154,9 +155,10 @@ class Game {
           _dropPiece(null, true);
         }
 
-        if (key == Key.downArrow) {
+        if (key == Key.downArrow || key == Key.fromChar("k")) {
           if (!_tetronimo!.landed(_board)) {
             _tetronimo!.pos.y += 1;
+            _softDropped++;
           }
         }
       }
@@ -214,8 +216,9 @@ class Game {
           return;
         }
 
-        _board.addPiece(_tetronimo!, _hardDropped * 2);
+        _board.addPiece(_tetronimo!, _hardDropped * 2, _softDropped);
         _hardDropped = 0;
+        _softDropped = 0;
         _tetronimo = null;
       } else {
         _tetronimo!.pos.y += 1;

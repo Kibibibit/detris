@@ -37,7 +37,7 @@ class Board extends Window {
     return false;
   }
 
-  void addPiece(Tetronimo tetronimo, [int hardDropped = 0]) {
+  void addPiece(Tetronimo tetronimo, [int hardDropped = 0, int softDropped = 0]) {
     for (Block b in tetronimo.children) {
       blocks[tetronimo.pos.y + b.pos.y][tetronimo.pos.x + b.pos.x] = b;
     }
@@ -66,7 +66,7 @@ class Board extends Window {
 
       int b = _scoring[clearedLines.length]!;
 
-      game.score += max(b, b*((game.backToBacks-1)*tetrisMult).floor())*game.level + hardDropped;
+      game.score += max(b, b*((game.backToBacks-1)*tetrisMult).floor())*game.level + hardDropped + softDropped;
       screen?.refresh();
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
