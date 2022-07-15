@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dcurses/dcurses.dart';
 
 import 'gameobjects/point.dart';
 import 'gameobjects/tetronimo.dart';
 import 'windows/board.dart';
+import 'windows/controls.dart';
 import 'windows/gameover.dart';
 import 'windows/holdwindow.dart';
 import 'windows/nextwindow.dart';
@@ -120,6 +122,7 @@ class Game {
     _screen.addWindow(_next);
     _screen.addWindow(_scoreBoard);
     _screen.addWindow(_board);
+    _screen.addWindow(Controls("SCREEN::CONTROLS", _board.lines + _scoreBoard.lines, 0, 30, 10));
     _updateScore(0);
     _next.draw();
     _hold.draw();
@@ -203,9 +206,7 @@ class Game {
       }
 
       if (_tetronimo!.landed(_board)) {
-        if (!hard) {
-          timer = (timer * 1.5).floor();
-        } else {
+        if (hard) {
           timer = 0;
         }
         if (_board.offTop(_tetronimo!)) {
@@ -218,6 +219,9 @@ class Game {
         _tetronimo = null;
       } else {
         _tetronimo!.pos.y += 1;
+        if (_tetronimo!.landed(_board)) {
+          timer = max((timer*1.5).floor(), 300);
+        }
         _board.update(_tetronimo);
       }
     } else {

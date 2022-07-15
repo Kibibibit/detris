@@ -15,7 +15,7 @@ class HoldWindow extends WindowInterface {
   void draw() {
     clear();
 
-    String hold = "HOLD 'w'";
+    String hold = "HOLD";
     cx = cen(hold);
     cy = 1;
 

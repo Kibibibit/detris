@@ -88,11 +88,15 @@ class Tetronimo {
     for (Block b in children) {
       b.rotate(left);
     }
-
+    
     while (clipping(board)) {
+      if (clips == 2) {
+        pos = oldPos;
+      }
       pos.x += clips < 2 ? -1 : 1;
       clips++;
-      if (clips >= 4) {
+      
+      if (clips > 4) {
         pos = oldPos;
         children = oldChildren;
         return;
