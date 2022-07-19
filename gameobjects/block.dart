@@ -40,9 +40,9 @@ class Block {
   }
 
   static Map<PieceType, Modifier> _blockMap = {
-    PieceType.square:Modifier.fg(Colour.yellow),
+    PieceType.square:Modifier.fg(Colour.brightorange),
     PieceType.line:Modifier.fg(Colour.cyan),
-    PieceType.t:Modifier.fg(Colour.purple),
+    PieceType.t:Modifier.fg(Colour.brightpurple),
     PieceType.leftS:Modifier.fg(Colour.red),
     PieceType.rightS:Modifier.fg(Colour.green),
     PieceType.leftL:Modifier.fg(Colour.blue),

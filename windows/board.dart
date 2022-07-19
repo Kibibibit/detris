@@ -66,7 +66,7 @@ class Board extends Window {
 
       int b = _scoring[clearedLines.length]!;
 
-      game.score += max(b, b*((game.backToBacks-1)*tetrisMult).floor())*game.level + hardDropped + softDropped;
+      game.score += max(b+ hardDropped + softDropped, b*((game.backToBacks-1)*tetrisMult).floor()+ hardDropped + softDropped)*game.level ;
       screen?.refresh();
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
@@ -110,7 +110,7 @@ class Board extends Window {
         cy = y + 1;
         cx = (x * 2) + 1;
 
-        List<Modifier> mods = [Modifier.fg(Colour.gray)];
+        List<Modifier> mods = [Modifier.fg(Colour.brightblack)];
         if ((cx-1)/2 % 2 == 0) {
           mods.add(Modifier.decoration(Decoration.faint));
         }
