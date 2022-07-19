@@ -1,7 +1,7 @@
 
 import 'package:dcurses/dcurses.dart';
 
-import 'game.dart';
+import '../game.dart';
 
 void main() async {
 
