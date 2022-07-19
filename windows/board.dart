@@ -71,7 +71,7 @@ class Board extends Window {
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
 
-        Colour flashColour = clearedLines.length != 4 ? Colour.white : Colour.values[Random().nextInt(Colour.values.length)];
+        Colour flashColour = clearedLines.length != 4 ? Colour.white : Colour.defaults[Random().nextInt(Colour.defaults.length)];
 
         for (int line in clearedLines) {
           for (int x = 0; x < columns; x++) {
