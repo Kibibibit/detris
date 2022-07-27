@@ -137,4 +137,8 @@ class Board extends Window {
       add(b.ch);
     }
   }
+  
+  @override
+  void draw() {
+  }
 }

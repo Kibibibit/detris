@@ -37,4 +37,8 @@ class ScoreBoard extends Window {
 
   }
   
+  @override
+  void draw() {
+  }
+  
 }

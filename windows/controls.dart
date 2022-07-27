@@ -24,5 +24,9 @@ class Controls extends Window {
     addStr("      R : restart");
 
   }
+  
+  @override
+  void draw() {
+  }
 
 }
