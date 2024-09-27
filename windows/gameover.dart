@@ -6,10 +6,12 @@ import 'windowint.dart';
 class GameOver extends WindowInterface {
   final Game game;
 
-  GameOver(String label, this.game)
-      : super(label, 0,0, 40, 11) {
+  GameOver(String label, this.game) : super(label, 0, 0, 40, 11) {
     border = Border.rounded();
   }
+
+  @override
+  void onDraw() {}
 
   void draw() {
     String gameOver = "GAME OVER!";
@@ -55,5 +57,4 @@ class GameOver extends WindowInterface {
     cy = 9;
     addStr(quit);
   }
-
 }

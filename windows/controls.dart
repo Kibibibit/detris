@@ -1,9 +1,8 @@
-
 import 'package:dcurses/dcurses.dart';
 
 class Controls extends Window {
-  Controls(String label, int y, int x, int columns, int lines) : super(label, y, x, columns, lines) {
-
+  Controls(String label, int y, int x, int columns, int lines)
+      : super(label, y, x, columns, lines) {
     cx = 1;
     cy = 1;
     addStr("← →/j l : left/right");
@@ -22,11 +21,10 @@ class Controls extends Window {
     cx = 1;
     cy = 6;
     addStr("      R : restart");
-
   }
-  
+
   @override
-  void draw() {
-  }
-
+  void draw() {}
+  @override
+  void onDraw() {}
 }

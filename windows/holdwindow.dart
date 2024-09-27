@@ -4,12 +4,15 @@ import '../game.dart';
 import 'windowint.dart';
 
 class HoldWindow extends WindowInterface {
-
   final Game game;
 
-  HoldWindow(String label, int y, int x, this.game) : super(label, y, x, 10, 8) {
+  HoldWindow(String label, int y, int x, this.game)
+      : super(label, y, x, 10, 8) {
     border = Border.rounded();
   }
+
+  @override
+  void onDraw() {}
 
   @override
   void draw() {
@@ -26,7 +29,5 @@ class HoldWindow extends WindowInterface {
       cx = 4;
       drawTetronimo(game.hold!);
     }
-
   }
-
 }

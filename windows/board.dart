@@ -18,12 +18,7 @@ class Board extends Window {
     border = Border.double();
   }
 
-  static final Map<int, int> _scoring = {
-    1: 100,
-    2: 300,
-    3: 500,
-    4: 800
-  };
+  static final Map<int, int> _scoring = {1: 100, 2: 300, 3: 500, 4: 800};
 
   static final int height = 20;
   static final int width = 10;
@@ -37,7 +32,8 @@ class Board extends Window {
     return false;
   }
 
-  void addPiece(Tetronimo tetronimo, [int hardDropped = 0, int softDropped = 0]) {
+  void addPiece(Tetronimo tetronimo,
+      [int hardDropped = 0, int softDropped = 0]) {
     for (Block b in tetronimo.children) {
       blocks[tetronimo.pos.y + b.pos.y][tetronimo.pos.x + b.pos.x] = b;
     }
@@ -58,7 +54,7 @@ class Board extends Window {
 
     if (clearedLines.isNotEmpty) {
       if (clearedLines.length == 4) {
-        game.backToBacks = game.backToBacks+1;
+        game.backToBacks = game.backToBacks + 1;
       } else {
         game.backToBacks = 0;
       }
@@ -66,19 +62,25 @@ class Board extends Window {
 
       int b = _scoring[clearedLines.length]!;
 
-      game.score += max(b+ hardDropped + softDropped, b*((game.backToBacks-1)*tetrisMult).floor()+ hardDropped + softDropped)*game.level ;
+      game.score += max(
+              b + hardDropped + softDropped,
+              b * ((game.backToBacks - 1) * tetrisMult).floor() +
+                  hardDropped +
+                  softDropped) *
+          game.level;
       screen?.refresh();
       int flashes = 20;
       for (int f = 0; f < flashes; f++) {
-
-        Colour flashColour = clearedLines.length != 4 ? Colour.white : Colour.defaults[Random().nextInt(Colour.defaults.length)];
+        Colour flashColour = clearedLines.length != 4
+            ? Colour.white
+            : Colour.defaults[Random().nextInt(Colour.defaults.length)];
 
         for (int line in clearedLines) {
           for (int x = 0; x < columns; x++) {
             cx = x;
             cy = line + 1;
             add(Ch(Block.blockCode,
-                [Modifier.fg(f % 2 == 0 ? Colour.black :  flashColour)]));
+                [Modifier.fg(f % 2 == 0 ? Colour.black : flashColour)]));
           }
         }
 
@@ -100,10 +102,11 @@ class Board extends Window {
     }
   }
 
+  @override
+  void onDraw() {}
+
   void drawBlocks() {
     this.clear();
-
-    
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
@@ -111,18 +114,17 @@ class Board extends Window {
         cx = (x * 2) + 1;
 
         List<Modifier> mods = [Modifier.fg(Colour.brightblack)];
-        if ((cx-1)/2 % 2 == 0) {
+        if ((cx - 1) / 2 % 2 == 0) {
           mods.add(Modifier.decoration(Decoration.faint));
         }
 
-        add(Ch(0x2595, mods ));
-        
+        add(Ch(0x2595, mods));
+
         if (blocks[y][x] != null) {
           add(blocks[y][x]!.ch);
           cx++;
           add(blocks[y][x]!.ch);
         }
-        
       }
     }
   }
@@ -137,8 +139,7 @@ class Board extends Window {
       add(b.ch);
     }
   }
-  
+
   @override
-  void draw() {
-  }
+  void draw() {}
 }
